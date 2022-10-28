@@ -22,17 +22,17 @@ public class Coordinate {
 
 	// getter for private attributes
 	//
-	public double get_x()
+	public double getX()
 	{
 		return x;
 	}
 
-	public double get_y()
+	public double getY()
 	{
 		return y;
 	}
 
-	public double get_z()
+	public double getZ()
 	{
 		return z;
 	}

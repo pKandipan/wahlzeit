@@ -21,9 +21,9 @@ public class CoordinateTest {
 		assertNotNull(coordinate);
 
 		// Check properties after creation
-		assertTrue(4. == coordinate.get_x());
-		assertTrue(5. == coordinate.get_y());
-		assertTrue(6. == coordinate.get_z());
+		assertTrue(4. == coordinate.getX());
+		assertTrue(5. == coordinate.getY());
+		assertTrue(6. == coordinate.getZ());
 	}
 
 }

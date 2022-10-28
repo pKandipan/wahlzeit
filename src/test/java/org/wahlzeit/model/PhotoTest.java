@@ -30,8 +30,8 @@ public class PhotoTest {
 		photo.location = new Location(4. ,5. ,6.);
 		assertNotNull(photo.location);
 
-		assertTrue(4. == photo.location.coordinate.get_x());
-		assertTrue(5. == photo.location.coordinate.get_y());
-		assertTrue(6. == photo.location.coordinate.get_z());
+		assertTrue(4. == photo.location.coordinate.getX());
+		assertTrue(5. == photo.location.coordinate.getY());
+		assertTrue(6. == photo.location.coordinate.getZ());
 	}
 }
