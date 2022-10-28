@@ -56,28 +56,20 @@ public class Coordinate {
 	// check whether 'this' and 'other' are equal
 	private boolean isEqual(Coordinate other)
 	{
-		if(other == null)
-		{
-			return false;
-		}
-		
-		if(other.getX() == x && other.getY() == y && other.getZ() == z)
-		{
-			return true;
-		}
+		if(other == null) return false;
 
-		return false;
+		return other.getX() == x && other.getY() == y && other.getZ() == z;
 	}
 
 	// forward 'equals' to 'isEqual'
 	@Override
 	public boolean equals(Object obj) {
 
-		if ( !(obj instanceof Coordinate) ) {
-			return false;
-		}
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (!(obj instanceof Coordinate)) return false;
 
-		final Coordinate other = (Coordinate) obj;
+		Coordinate other = (Coordinate) obj;
 		return isEqual(other);
 	}
 }
