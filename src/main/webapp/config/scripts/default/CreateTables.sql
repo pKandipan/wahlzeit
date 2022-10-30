@@ -18,7 +18,7 @@ CREATE TABLE users (
 CREATE TABLE photos (
 	id integer PRIMARY KEY,
 	owner_id integer REFERENCES users(id),
-	i_owner_name text,
+	owner_name text,
 	owner_notify_about_praise boolean,
 	owner_email_address text,
 	owner_language integer,
