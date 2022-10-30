@@ -18,7 +18,7 @@ CREATE TABLE users (
 CREATE TABLE photos (
 	id integer PRIMARY KEY,
 	owner_id integer REFERENCES users(id),
-	owner_name text,
+	i_owner_name text,
 	owner_notify_about_praise boolean,
 	owner_email_address text,
 	owner_language integer,
@@ -29,7 +29,10 @@ CREATE TABLE photos (
 	status integer,
 	praise_sum integer,
 	no_votes integer,
-	creation_time bigint
+	creation_time bigint,
+	coordinate_x double precision,
+	coordinate_y double precision,
+	coordinate_z double precision
 );
 
 CREATE TABLE tags (
