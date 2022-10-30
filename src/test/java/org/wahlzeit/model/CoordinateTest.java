@@ -58,5 +58,8 @@ public class CoordinateTest {
 
 		other = new Coordinate(-6., 2., -1.);
 		assertTrue(!coordinate.equals(other));
+
+		other = new Coordinate(-6.265972, 2.894674, -1.65667);
+		assertTrue(other.equals(other));
 	}
 }
