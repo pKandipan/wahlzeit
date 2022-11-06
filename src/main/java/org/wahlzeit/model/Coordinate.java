@@ -72,4 +72,11 @@ public class Coordinate {
 		Coordinate other = (Coordinate) obj;
 		return isEqual(other);
 	}
+	
+	@Override
+	public int hashCode() {
+	    double tmp = 71. * 71. * x + 71. * y + z;
+	    Double d = new Double(tmp);
+		return d.hashCode();
+	}
 }

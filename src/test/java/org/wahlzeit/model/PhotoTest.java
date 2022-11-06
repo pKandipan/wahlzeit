@@ -25,7 +25,7 @@ public class PhotoTest {
 		assertNull(photo.location);
 	}
 
-    @Test
+	@Test
 	public void testLocationMember() {
 		photo.location = new Location(4. ,5. ,6.);
 		assertNotNull(photo.location);

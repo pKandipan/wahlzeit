@@ -15,8 +15,14 @@ CREATE TABLE users (
 	creation_time bigint
 );
 
-CREATE TABLE photos (
+CREATE TABLE flowers (
 	id integer PRIMARY KEY,
+	flower_name text,
+	flower_color text
+);
+
+CREATE TABLE photos (
+	id integer PRIMARY KEY REFERENCES flowers(id),
 	owner_id integer REFERENCES users(id),
 	owner_name text,
 	owner_notify_about_praise boolean,
