@@ -36,9 +36,9 @@ CREATE TABLE photos (
 	praise_sum integer,
 	no_votes integer,
 	creation_time bigint,
-	coordinate_x double precision,
-	coordinate_y double precision,
-	coordinate_z double precision
+	cartesian_coordinate_x double precision,
+	cartesian_coordinate_y double precision,
+	cartesian_coordinate_z double precision
 );
 
 CREATE TABLE tags (

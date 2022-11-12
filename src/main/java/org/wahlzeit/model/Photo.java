@@ -92,7 +92,7 @@ public class Photo extends DataObject {
 	/**
 	 * 
 	 */
-	public Location location = null;
+	protected Location location = null;
 
 	/**
 	 * 
@@ -155,10 +155,7 @@ public class Photo extends DataObject {
 
 		maxPhotoSize = PhotoSize.getFromWidthHeight(width, height);
 
-		double x = rset.getDouble("coordinate_x");
-		double y = rset.getDouble("coordinate_y");
-		double z = rset.getDouble("coordinate_z");
-		location = new Location(x, y, z);
+		location = new Location(rset);
 	}
 	
 	/**
@@ -182,9 +179,7 @@ public class Photo extends DataObject {
 
 		if(location != null)
 		{
-			rset.updateDouble("coordinate_x", location.coordinate.getX());
-			rset.updateDouble("coordinate_y", location.coordinate.getY());
-			rset.updateDouble("coordinate_z", location.coordinate.getZ());
+			location.writeOn(rset);
 		}
 	}
 
@@ -201,6 +196,23 @@ public class Photo extends DataObject {
 	 */
 	public PhotoId getId() {
 		return id;
+	}
+	
+	/**
+	 * 
+	 * @methodtype get
+	 */
+	public Location getLocation() {
+		return location;
+	}
+	
+	/**
+	 * 
+	 * @methodtype set
+	 */
+	public void setLocation(Location newLocation) {
+		location = newLocation;
+		incWriteCount();
 	}
 	
 	/**

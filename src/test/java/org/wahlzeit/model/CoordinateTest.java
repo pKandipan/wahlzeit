@@ -11,11 +11,11 @@ import java.lang.Math;
 
 public class CoordinateTest {
 
-	private Coordinate coordinate;
+	private CartesianCoordinate coordinate;
 
 	@Before
 	public void initCoordinate() {
-		coordinate = new Coordinate(4., 5., 6.);
+		coordinate = new CartesianCoordinate(4., 5., 6.);
 	}
 
 	@Test
@@ -31,10 +31,10 @@ public class CoordinateTest {
 	@Test
 	public void testGetDistance() {
 		
-		Coordinate other = new Coordinate(4., 5., 6.);
+		CartesianCoordinate other = new CartesianCoordinate(4., 5., 6.);
 		assertTrue(0. == coordinate.getDistance(other));
 
-		other = new Coordinate(-6., 2., -1.);
+		other = new CartesianCoordinate(-6., 2., -1.);
 		double dist = Math.sqrt(158.);
 		assertTrue(dist == coordinate.getDistance(other));
 
@@ -53,13 +53,13 @@ public class CoordinateTest {
 		assertTrue(coordinate.equals(coordinate));
 		
 
-		Coordinate other = new Coordinate(4., 5., 6.);
+		CartesianCoordinate other = new CartesianCoordinate(4., 5., 6.);
 		assertTrue(coordinate.equals(other));
 
-		other = new Coordinate(-6., 2., -1.);
+		other = new CartesianCoordinate(-6., 2., -1.);
 		assertTrue(!coordinate.equals(other));
 
-		other = new Coordinate(-6.265972, 2.894674, -1.65667);
+		other = new CartesianCoordinate(-6.265972, 2.894674, -1.65667);
 		assertTrue(other.equals(other));
 	}
 }

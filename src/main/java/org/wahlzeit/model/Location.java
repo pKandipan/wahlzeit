@@ -2,20 +2,87 @@
 // group this class in the same package as the Photo class
 package org.wahlzeit.model;
 
+import java.sql.*;
+import java.net.*;
 
 public class Location {
 
-	// composition behavior between Location and Coordinate classes
-	// final, cause Coordinate object of another Location object should not be assigned here (multiplicity 0..1)
-	public final Coordinate coordinate;
+	protected Coordinate coordinate;
 
 
-	// constructor that takes coordinate components as arguments
-	// arguments needed to init the member coordinate that is never null (multiplicity 1 ensured)
-	public Location(double x, double y, double z)
+	// constructor that takes a coordinate and assigns it to the 'cooridianate' field
+	public Location(Coordinate coordinate)
 	{
-		// create new Coordinate object (instead of assigning argument to member) to ensure the multiplicity 0..1
-		this.coordinate = new Coordinate(x, y, z);
+		// this.coordinate gets initialized with new Coordinate object to ensure multiplicity
+	
+		if(coordinate instanceof CartesianCoordinate)
+		{
+			CartesianCoordinate cartesianCoordinate = (CartesianCoordinate)coordinate;
+			this.coordinate = new CartesianCoordinate(cartesianCoordinate.getX(), cartesianCoordinate.getY(), cartesianCoordinate.getZ());
+		}
+		
+		else if(coordinate instanceof SphericCoordinate)
+		{
+			SphericCoordinate sphericCoordinate = coordinate.asSphericCoordinate();
+			this.coordinate = new SphericCoordinate(sphericCoordinate.getPhi(), sphericCoordinate.getTheta(), sphericCoordinate.getRadius());
+		}
+	}
+	
+	// constructor that takes a ResultSet to read from
+	public Location(ResultSet rset) throws SQLException
+	{
+		readFrom(rset);
+	}
+	
+	/**
+	 * 
+	 */
+	public void readFrom(ResultSet rset) throws SQLException {
+		double x = rset.getDouble("cartesian_coordinate_x");
+		double y = rset.getDouble("cartesian_coordinate_y");
+		double z = rset.getDouble("cartesian_coordinate_z");
+		coordinate = new CartesianCoordinate(x, y, z);
+	}
+	
+	/**
+	 * 
+	 */
+	public void writeOn(ResultSet rset) throws SQLException {
+		if(coordinate != null)
+		{
+			if(coordinate instanceof CartesianCoordinate)
+			{
+				CartesianCoordinate cartesianCoordinate = (CartesianCoordinate)coordinate;
+				rset.updateDouble("cartesian_coordinate_x", cartesianCoordinate.getX());
+				rset.updateDouble("cartesian_coordinate_y", cartesianCoordinate.getY());
+				rset.updateDouble("cartesian_coordinate_z", cartesianCoordinate.getZ());
+			}
+			else if(coordinate instanceof SphericCoordinate)
+			{
+				CartesianCoordinate cartesianCoordinate = coordinate.asCartesianCoordinate();
+				rset.updateDouble("cartesian_coordinate_x", cartesianCoordinate.getX());
+				rset.updateDouble("cartesian_coordinate_y", cartesianCoordinate.getY());
+				rset.updateDouble("cartesian_coordinate_z", cartesianCoordinate.getZ());
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @methodtype get
+	 */
+	public Coordinate getCoordinate()
+	{
+		return coordinate;
+	}
+	
+	/**
+	 * 
+	 * @methodtype set
+	 */
+	public void setCoordinate(Coordinate newCoordinate)
+	{
+		coordinate = newCoordinate;
 	}
 
 }

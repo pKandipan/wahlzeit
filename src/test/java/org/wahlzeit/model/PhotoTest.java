@@ -27,11 +27,13 @@ public class PhotoTest {
 
 	@Test
 	public void testLocationMember() {
-		photo.location = new Location(4. ,5. ,6.);
-		assertNotNull(photo.location);
+		photo.setLocation(new Location(new CartesianCoordinate(4. ,5. ,6.)));
+		assertNotNull(photo.getLocation());
+		
+		CartesianCoordinate cartesianCoordinate = (CartesianCoordinate)photo.getLocation().getCoordinate();
 
-		assertTrue(4. == photo.location.coordinate.getX());
-		assertTrue(5. == photo.location.coordinate.getY());
-		assertTrue(6. == photo.location.coordinate.getZ());
+		assertTrue(4. == cartesianCoordinate.getX());
+		assertTrue(5. == cartesianCoordinate.getY());
+		assertTrue(6. == cartesianCoordinate.getZ());
 	}
 }

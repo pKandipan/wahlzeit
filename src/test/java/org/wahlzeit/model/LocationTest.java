@@ -13,7 +13,7 @@ public class LocationTest {
 
 	@Before
 	public void initLocation() {
-		location = new Location(4., 5., 6.);
+		location = new Location(new CartesianCoordinate(4., 5., 6.));
 	}
 
 	@Test
@@ -21,7 +21,7 @@ public class LocationTest {
 		assertNotNull(location);
 
 		// Check properties after creation
-		assertNotNull(location.coordinate);
+		assertNotNull(location.getCoordinate());
 	}
 
 }
