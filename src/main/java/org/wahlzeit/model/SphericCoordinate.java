@@ -7,7 +7,8 @@ import java.lang.Math;
 public class SphericCoordinate implements Coordinate {
 
 	// spheric coordinate components
-	private final double phi; //azimuth
+	// (whether phi is the azimuth or inclination depends on who you ask)
+	private final double phi; // azimuth
 	private final double theta; // inclination
 	private final double radius;
 
@@ -45,8 +46,8 @@ public class SphericCoordinate implements Coordinate {
 	}
 
 
-	// compute distance between 'this' and 'other'
-	public double getDistance(SphericCoordinate other)
+	// compute arc length between 'this' and 'other'
+	public double getArcLength(SphericCoordinate other)
 	{
 		if (other == null) {
 			throw new NullPointerException("Parameter 'other' was null inside method 'getDistance'.");
@@ -61,7 +62,12 @@ public class SphericCoordinate implements Coordinate {
 		if(other == null) return false;
 
 		SphericCoordinate sphericOther = other.asSphericCoordinate();
-		return sphericOther.getPhi() == phi && sphericOther.getTheta() == theta && sphericOther.getRadius() == radius;
+		
+		boolean equal = Math.abs(sphericOther.getPhi() - phi) < 0.00001;
+		equal = equal && Math.abs(sphericOther.getTheta() - theta) < 0.00001;
+		equal = equal && Math.abs(sphericOther.getRadius() - radius) < 0.00001;
+		
+		return equal;
 	}
 
 	// forward 'equals' to 'isEqual'
@@ -70,9 +76,9 @@ public class SphericCoordinate implements Coordinate {
 
 		if (this == obj) return true;
 		if (obj == null) return false;
-		if (!(obj instanceof SphericCoordinate)) return false;
+		if (!(obj instanceof Coordinate)) return false;
 
-		SphericCoordinate other = (SphericCoordinate) obj;
+		Coordinate other = (Coordinate) obj;
 		return isEqual(other);
 	}
 	

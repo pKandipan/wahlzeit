@@ -59,7 +59,12 @@ public class CartesianCoordinate implements Coordinate {
 		if(other == null) return false;
 
 		CartesianCoordinate cartesianOther = other.asCartesianCoordinate();
-		return cartesianOther.getX() == x && cartesianOther.getY() == y && cartesianOther.getZ() == z;
+		
+		boolean equal = Math.abs(cartesianOther.getX() - x) < 0.00001;
+		equal = equal && Math.abs(cartesianOther.getY() - y) < 0.00001;
+		equal = equal && Math.abs(cartesianOther.getZ() - z) < 0.00001;
+		
+		return equal;
 	}
 
 	// forward 'equals' to 'isEqual'

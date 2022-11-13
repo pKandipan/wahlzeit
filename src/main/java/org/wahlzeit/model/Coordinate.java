@@ -2,8 +2,6 @@
 // group this class in the same package as the Photo class
 package org.wahlzeit.model;
 
-import java.lang.Math;
-
 public interface Coordinate {
 
 
