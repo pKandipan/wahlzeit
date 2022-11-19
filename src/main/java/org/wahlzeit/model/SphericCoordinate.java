@@ -4,7 +4,7 @@ package org.wahlzeit.model;
 
 import java.lang.Math;
 
-public class SphericCoordinate implements Coordinate {
+public class SphericCoordinate extends AbstractCoordinate {
 
 	// spheric coordinate components
 	// (whether phi is the azimuth or inclination depends on who you ask)
@@ -45,7 +45,6 @@ public class SphericCoordinate implements Coordinate {
 		return radius;
 	}
 
-
 	// compute arc length between 'this' and 'other'
 	public double getArcLength(SphericCoordinate other)
 	{
@@ -54,32 +53,6 @@ public class SphericCoordinate implements Coordinate {
 		}
 
 		return radius * getCentralAngle(this);
-	}
-
-	// check whether 'this' and 'other' are equal
-	public boolean isEqual(Coordinate other)
-	{
-		if(other == null) return false;
-
-		SphericCoordinate sphericOther = other.asSphericCoordinate();
-		
-		boolean equal = Math.abs(sphericOther.getPhi() - phi) < 0.00001;
-		equal = equal && Math.abs(sphericOther.getTheta() - theta) < 0.00001;
-		equal = equal && Math.abs(sphericOther.getRadius() - radius) < 0.00001;
-		
-		return equal;
-	}
-
-	// forward 'equals' to 'isEqual'
-	@Override
-	public boolean equals(Object obj) {
-
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (!(obj instanceof Coordinate)) return false;
-
-		Coordinate other = (Coordinate) obj;
-		return isEqual(other);
 	}
 	
 	@Override
@@ -101,33 +74,5 @@ public class SphericCoordinate implements Coordinate {
 	public SphericCoordinate asSphericCoordinate()
 	{
 		return this;
-	}
-	
-	public double getCartesianDistance(Coordinate other)
-	{
-		CartesianCoordinate cartesianThis = this.asCartesianCoordinate();
-		return cartesianThis.getCartesianDistance(other);
-	}
-	
-	public double getCentralAngle(Coordinate other)
-	{
-		SphericCoordinate sphericOther = other.asSphericCoordinate();
-		double latitude1 = Math.PI / 2. - this.getTheta();
-		double latitude2 = Math.PI / 2. - sphericOther.getTheta();
-		double deltaLongitude = sphericOther.getPhi() - this.getPhi();
-		
-		// Vincenty formula
-		double summand1 = Math.cos(latitude2) * Math.sin(deltaLongitude);
-		summand1 *= summand1;
-		
-		double summand2 = Math.cos(latitude1) * Math.sin(latitude2)
-			- Math.sin(latitude1) * Math.cos(latitude2) * Math.cos(deltaLongitude);
-		summand2 *= summand2;
-		
-		double numerator = Math.sqrt(summand1 + summand2);
-		double denominator = Math.sin(latitude1) * Math.sin(latitude2)
-			+ Math.cos(latitude1) * Math.cos(latitude2) * Math.cos(deltaLongitude);
-			
-		return Math.atan(numerator / denominator);
 	}
 }

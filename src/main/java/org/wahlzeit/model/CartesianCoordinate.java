@@ -4,7 +4,7 @@ package org.wahlzeit.model;
 
 import java.lang.Math;
 
-public class CartesianCoordinate implements Coordinate {
+public class CartesianCoordinate extends AbstractCoordinate {
 
 	// cartesian coordinate components
 	private final double x;
@@ -52,32 +52,6 @@ public class CartesianCoordinate implements Coordinate {
 
 		return Math.sqrt(dx * dx + dy * dy + dz * dz);
 	}
-
-	// check whether 'this' and 'other' are equal
-	public boolean isEqual(Coordinate other)
-	{
-		if(other == null) return false;
-
-		CartesianCoordinate cartesianOther = other.asCartesianCoordinate();
-		
-		boolean equal = Math.abs(cartesianOther.getX() - x) < 0.00001;
-		equal = equal && Math.abs(cartesianOther.getY() - y) < 0.00001;
-		equal = equal && Math.abs(cartesianOther.getZ() - z) < 0.00001;
-		
-		return equal;
-	}
-
-	// forward 'equals' to 'isEqual'
-	@Override
-	public boolean equals(Object obj) {
-
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (!(obj instanceof Coordinate)) return false;
-
-		Coordinate other = (Coordinate) obj;
-		return isEqual(other);
-	}
 	
 	@Override
 	public int hashCode() {
@@ -117,17 +91,5 @@ public class CartesianCoordinate implements Coordinate {
 		}
 		
 		return new SphericCoordinate(phi, theta, radius);
-	}
-	
-	public double getCartesianDistance(Coordinate other)
-	{
-		CartesianCoordinate cartesianOther = other.asCartesianCoordinate();
-		return getDistance(cartesianOther);
-	}
-	
-	public double getCentralAngle(Coordinate other)
-	{
-		SphericCoordinate sphericThis = asSphericCoordinate();
-		return sphericThis.getCentralAngle(other);
 	}
 }
