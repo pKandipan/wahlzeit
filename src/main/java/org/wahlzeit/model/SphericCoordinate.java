@@ -55,13 +55,6 @@ public class SphericCoordinate extends AbstractCoordinate {
 		return radius * getCentralAngle(this);
 	}
 	
-	@Override
-	public int hashCode() {
-	    double tmp = 71. * 71. * phi + 71. * theta + radius;
-	    Double d = new Double(tmp);
-		return d.hashCode();
-	}
-	
 	public CartesianCoordinate asCartesianCoordinate()
 	{
 		double x = radius * Math.sin(theta) * Math.cos(phi);

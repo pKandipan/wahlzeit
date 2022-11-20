@@ -59,6 +59,15 @@ public abstract class AbstractCoordinate implements Coordinate {
 		return equal;
 	}
 	
+	@Override
+	public int hashCode() {
+		CartesianCoordinate cartesianThis = this.asCartesianCoordinate();
+		
+	    double tmp = 71. * 71. * cartesianThis.getX() + 71. * cartesianThis.getY() + cartesianThis.getZ();
+	    Double d = new Double(tmp);
+		return d.hashCode();
+	}
+	
 	// forward 'equals' to 'isEqual'
 	@Override
 	public boolean equals(Object obj) {

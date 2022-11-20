@@ -53,13 +53,6 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		return Math.sqrt(dx * dx + dy * dy + dz * dz);
 	}
 	
-	@Override
-	public int hashCode() {
-	    double tmp = 71. * 71. * x + 71. * y + z;
-	    Double d = new Double(tmp);
-		return d.hashCode();
-	}
-	
 	public CartesianCoordinate asCartesianCoordinate()
 	{
 		return this;
