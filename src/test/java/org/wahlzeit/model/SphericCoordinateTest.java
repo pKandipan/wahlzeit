@@ -3,6 +3,7 @@ package org.wahlzeit.model;
 
 import org.junit.Before;
 import org.junit.Test;
+import static org.mockito.Mockito.*;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNotNull;
@@ -89,5 +90,24 @@ public class SphericCoordinateTest {
 	@Test
 	public void testCentralAngle() {
 		assertTrue(coordinate.getCentralAngle(coordinate) < 0.00001);
+	}
+	
+	@Test
+	public void testAssertClassInvariants() {
+		SphericCoordinate newCoordinate = spy(new SphericCoordinate(1., 2., 2.5));
+		
+		newCoordinate.getPhi();
+		newCoordinate.getTheta();
+		newCoordinate.getRadius();
+		newCoordinate.asCartesianCoordinate();
+		newCoordinate.asSphericCoordinate();
+		
+		verify(newCoordinate, atLeast(6)).assertClassInvariants();
+		verify(newCoordinate, atLeast(6)).assertInValueRange();
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testAssertInValueRange() {
+		SphericCoordinate other = new SphericCoordinate(40., 50., 6.);
 	}
 }

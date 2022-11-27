@@ -18,6 +18,11 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+		
+		// class invariant
+		{
+			this.assertClassInvariants();
+		}
 	}
 
 
@@ -25,16 +30,31 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	//
 	public double getX()
 	{
+		// class invariant
+		{
+			this.assertClassInvariants();
+		}
+		
 		return x;
 	}
 
 	public double getY()
 	{
+		// class invariant
+		{
+			this.assertClassInvariants();
+		}
+		
 		return y;
 	}
 
 	public double getZ()
 	{
+		// class invariant
+		{
+			this.assertClassInvariants();
+		}
+		
 		return z;
 	}
 
@@ -42,24 +62,26 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	// compute distance between 'this' and 'other'
 	public double getDistance(CartesianCoordinate other)
 	{
-		if (other == null) {
-			throw new NullPointerException("Parameter 'other' was null inside method 'getDistance'.");
-		}
-
-		double dx = other.getX() - x;
-		double dy = other.getY() - y;
-		double dz = other.getZ() - z;
-
-		return Math.sqrt(dx * dx + dy * dy + dz * dz);
+		return this.getCartesianDistance(other);
 	}
 	
 	public CartesianCoordinate asCartesianCoordinate()
 	{
+		// class invariant
+		{
+			this.assertClassInvariants();
+		}
+	
 		return this;
 	}
 	
 	public SphericCoordinate asSphericCoordinate()
 	{
+		// precondition
+		{
+			this.assertClassInvariants();
+		}
+	
 		double radius = Math.sqrt(x * x + y * y + z * z);
 		double theta = Math.acos(z/radius);
 		double phi = 0.;
@@ -80,9 +102,23 @@ public class CartesianCoordinate extends AbstractCoordinate {
 			phi = -Math.PI / 2.;
 		}
 		else if(x == 0 && y == 0){
+			// here exception handling from previous assignments
 			throw new IllegalStateException("both x and y cannot be 0");
 		}
 		
+		// postcondition
+		{
+			this.assertClassInvariants();
+		}
+		
 		return new SphericCoordinate(phi, theta, radius);
+	}
+	
+	protected void assertClassInvariants()
+	{
+		if(Double.isNaN(this.x) || Double.isNaN(this.y) || Double.isNaN(this.z))
+		{
+			throw new IllegalStateException("double field in CartesianCoordinate class is NaN");
+		}
 	}
 }

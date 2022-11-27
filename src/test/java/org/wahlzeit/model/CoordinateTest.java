@@ -3,6 +3,7 @@ package org.wahlzeit.model;
 
 import org.junit.Before;
 import org.junit.Test;
+import static org.mockito.Mockito.*;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNotNull;
@@ -77,5 +78,47 @@ public class CoordinateTest {
 		
 		assertTrue(coordinate.asCartesianCoordinate() instanceof CartesianCoordinate);
 		assertTrue(coordinate.asSphericCoordinate() instanceof SphericCoordinate);
+	}
+	
+	@Test
+	public void testAssertClassInvariants() {
+		CartesianCoordinate newCoordinate = spy(new CartesianCoordinate(56., 42., 62.));
+		
+		newCoordinate.getX();
+		newCoordinate.getY();
+		newCoordinate.getZ();
+		newCoordinate.asCartesianCoordinate();
+		newCoordinate.asSphericCoordinate();
+		
+		verify(newCoordinate, atLeast(6)).assertClassInvariants();
+	}
+	
+	@Test(expected = NullPointerException.class)
+	public void testAssertIsNotNull() {
+		CartesianCoordinate newCoordinate = spy(new CartesianCoordinate(56., 42., 62.));
+		
+		newCoordinate.getCartesianDistance(null);
+		verify(newCoordinate).assertIsNotNull(any(), any());
+		
+		newCoordinate.getCentralAngle(null);
+		verify(newCoordinate).assertIsNotNull(any(), any());
+	}
+	
+	@Test(expected = RuntimeException.class)
+	public void testAssertValidDistance() {
+		CartesianCoordinate newCoordinate = spy(new CartesianCoordinate(56., 42., 62.));
+		newCoordinate.getCartesianDistance(any());
+
+		verify(newCoordinate).assertValidDistance(any());
+		newCoordinate.assertValidDistance(-5.);
+	}
+	
+	@Test(expected = RuntimeException.class)
+	public void testAssertValidCentralAngle() {
+		CartesianCoordinate newCoordinate = spy(new CartesianCoordinate(56., 42., 62.));
+		newCoordinate.getCentralAngle(any());
+
+		verify(newCoordinate).assertValidCentralAngle(any());
+		newCoordinate.assertValidCentralAngle(2. * Math.PI);
 	}
 }
