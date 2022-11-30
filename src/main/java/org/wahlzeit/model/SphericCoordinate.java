@@ -123,7 +123,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	protected void assertInValueRange()
 	{
 		if(!isInValueRange(this.phi, this.theta, this.radius)){
-			throw new RuntimeException("Spheric Coordinate: phi[0, 2 * PI), theta[0, PI], radius [0, inf)");
+			throw new IllegalStateException("Spheric Coordinate: phi[0, 2 * PI), theta[0, PI], radius [0, inf)");
 		}
 	}
 	

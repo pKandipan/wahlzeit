@@ -28,6 +28,8 @@ public class FlowerPhoto extends Photo {
 	 * @methodtype constructor
 	 */
 	public FlowerPhoto(PhotoId myId) {
+		assertIsNotNull(myId, "Parameter 'myId' was null inside FlowerPhoto constructor");
+	
 		id = myId;
 		
 		incWriteCount();
@@ -38,6 +40,7 @@ public class FlowerPhoto extends Photo {
 	 * @methodtype constructor
 	 */
 	public FlowerPhoto(ResultSet photoRset) throws SQLException {
+		assertIsNotNull(photoRset, "Parameter 'photoRset' was null inside FlowerPhoto constructor.");
 		readFrom(photoRset);
 	}
 	
@@ -53,14 +56,17 @@ public class FlowerPhoto extends Photo {
 	 * 
 	 */
 	public void readFrom(ResultSet photoRset, ResultSet flowerRset) throws SQLException {
-		if (photoRset == null || flowerRset == null) {
-			throw new NullPointerException("Parameter was null inside method 'readFrom'.");
-		}
+		assertIsNotNull(photoRset, "Parameter 'photoRset' was null inside 'readFrom'.");
+		assertIsNotNull(flowerRset, "Parameter 'flowerRset' was null inside 'readFrom'.");
 	
-		readFrom(photoRset);
+		try {
+			readFrom(photoRset);
 		
-		flowerName = flowerRset.getString("flower_name");
-		flowerColor = flowerRset.getString("flower_color");
+			flowerName = flowerRset.getString("flower_name");
+			flowerColor = flowerRset.getString("flower_color");
+		} catch(SQLException e) {
+			throw e;
+		}
 	}
 	
 	/**
@@ -68,9 +74,15 @@ public class FlowerPhoto extends Photo {
 	 */
 	@Override
 	public void writeOn(ResultSet rset) throws SQLException {
-		rset.updateInt("id", id.asInt());
-		rset.updateString("flower_name", flowerName);
-		rset.updateString("flower_color", flowerColor);
+		assertIsNotNull(rset, "Parameter 'rset' was null inside 'writeOn'.");
+	
+		try {
+			rset.updateInt("id", id.asInt());
+			rset.updateString("flower_name", flowerName);
+			rset.updateString("flower_color", flowerColor);
+		} catch(SQLException e) {
+			throw e;
+		}
 	}
 
 
@@ -106,5 +118,12 @@ public class FlowerPhoto extends Photo {
 	public void setFlowerColor(String newFlowerColor) {
 		flowerColor = newFlowerColor;
 		incWriteCount();
+	}
+	
+	protected void assertIsNotNull(Object ob, String msg)
+	{
+		if (ob == null) {
+			throw new NullPointerException(msg);
+		}
 	}
 }

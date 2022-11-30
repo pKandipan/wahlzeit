@@ -13,6 +13,8 @@ public class Location {
 	// constructor that takes a coordinate and assigns it to the 'cooridianate' field
 	public Location(Coordinate coordinate)
 	{
+		assertIsNotNull(coordinate, "Parameter 'coordinate' was null inside method Location constructor.");
+	
 		// this.coordinate gets initialized with new Coordinate object to ensure multiplicity
 	
 		if(coordinate instanceof CartesianCoordinate)
@@ -31,39 +33,42 @@ public class Location {
 	// constructor that takes a ResultSet to read from
 	public Location(ResultSet rset) throws SQLException
 	{
+		assertIsNotNull(rset, "Parameter 'rset' was null inside Location constructor.");
 		readFrom(rset);
+		assertClassInvariants();
 	}
 	
 	/**
 	 * 
 	 */
 	public void readFrom(ResultSet rset) throws SQLException {
-		double x = rset.getDouble("cartesian_coordinate_x");
-		double y = rset.getDouble("cartesian_coordinate_y");
-		double z = rset.getDouble("cartesian_coordinate_z");
-		coordinate = new CartesianCoordinate(x, y, z);
+		assertIsNotNull(rset, "Parameter 'rset' was null inside 'readFrom'.");
+	
+		try {
+			double x = rset.getDouble("cartesian_coordinate_x");
+			double y = rset.getDouble("cartesian_coordinate_y");
+			double z = rset.getDouble("cartesian_coordinate_z");
+			coordinate = new CartesianCoordinate(x, y, z);
+		} catch(SQLException e) {
+			throw e;
+		}
 	}
 	
 	/**
 	 * 
 	 */
 	public void writeOn(ResultSet rset) throws SQLException {
-		if(coordinate != null)
-		{
-			if(coordinate instanceof CartesianCoordinate)
-			{
-				CartesianCoordinate cartesianCoordinate = (CartesianCoordinate)coordinate;
-				rset.updateDouble("cartesian_coordinate_x", cartesianCoordinate.getX());
-				rset.updateDouble("cartesian_coordinate_y", cartesianCoordinate.getY());
-				rset.updateDouble("cartesian_coordinate_z", cartesianCoordinate.getZ());
-			}
-			else if(coordinate instanceof SphericCoordinate)
-			{
-				CartesianCoordinate cartesianCoordinate = coordinate.asCartesianCoordinate();
-				rset.updateDouble("cartesian_coordinate_x", cartesianCoordinate.getX());
-				rset.updateDouble("cartesian_coordinate_y", cartesianCoordinate.getY());
-				rset.updateDouble("cartesian_coordinate_z", cartesianCoordinate.getZ());
-			}
+		assertClassInvariants();
+		assertIsNotNull(rset, "Parameter 'rset' was null inside 'writeOn'.");
+	
+		CartesianCoordinate cartesianCoordinate = coordinate.asCartesianCoordinate();
+		
+		try {
+			rset.updateDouble("cartesian_coordinate_x", cartesianCoordinate.getX());
+			rset.updateDouble("cartesian_coordinate_y", cartesianCoordinate.getY());
+			rset.updateDouble("cartesian_coordinate_z", cartesianCoordinate.getZ());
+		} catch(SQLException e) {
+			throw e;
 		}
 	}
 	
@@ -73,6 +78,7 @@ public class Location {
 	 */
 	public Coordinate getCoordinate()
 	{
+		assertClassInvariants();
 		return coordinate;
 	}
 	
@@ -82,7 +88,23 @@ public class Location {
 	 */
 	public void setCoordinate(Coordinate newCoordinate)
 	{
+		assertIsNotNull(newCoordinate, "Parameter 'newCoordinate' was null inside method 'setCoordinate'.");
 		coordinate = newCoordinate;
 	}
+	
+	
+	protected void assertIsNotNull(Object ob, String msg)
+	{
+		if (ob == null) {
+			throw new NullPointerException(msg);
+		}
+	}
 
+	protected void assertClassInvariants()
+	{
+		if(coordinate == null)
+		{
+			throw new IllegalStateException("coordinate in Location class is null");
+		}
+	}
 }
