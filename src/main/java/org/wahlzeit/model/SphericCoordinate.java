@@ -120,6 +120,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 		|| phi < 0 || phi >= 2. * Math.PI);
 	}
 	
+	// cw07
 	protected void assertInValueRange()
 	{
 		if(!isInValueRange(this.phi, this.theta, this.radius)){
@@ -127,6 +128,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 		}
 	}
 	
+	// cw07
 	protected void assertInValueRange(double phi, double theta, double radius)
 	{
 		if(!isInValueRange(phi, theta, radius)){
@@ -134,6 +136,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 		}
 	}
 	
+	// cw07
 	protected void assertNotInIllegalState()
 	{
 		if(Double.isNaN(this.phi) || Double.isNaN(this.theta) || Double.isNaN(this.radius))

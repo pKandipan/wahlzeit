@@ -102,6 +102,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 			phi = -Math.PI / 2.;
 		}
 		else if(x == 0 && y == 0){
+			// cw07
 			// here exception handling from previous assignments
 			throw new IllegalStateException("both x and y cannot be 0");
 		}
@@ -114,6 +115,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		return new SphericCoordinate(phi, theta, radius);
 	}
 	
+	// cw07
 	protected void assertClassInvariants()
 	{
 		if(Double.isNaN(this.x) || Double.isNaN(this.y) || Double.isNaN(this.z))

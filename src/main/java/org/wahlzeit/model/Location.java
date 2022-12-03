@@ -44,6 +44,7 @@ public class Location {
 	public void readFrom(ResultSet rset) throws SQLException {
 		assertIsNotNull(rset, "Parameter 'rset' was null inside 'readFrom'.");
 	
+		// cw07
 		try {
 			double x = rset.getDouble("cartesian_coordinate_x");
 			double y = rset.getDouble("cartesian_coordinate_y");
@@ -63,6 +64,7 @@ public class Location {
 	
 		CartesianCoordinate cartesianCoordinate = coordinate.asCartesianCoordinate();
 		
+		// cw07
 		try {
 			rset.updateDouble("cartesian_coordinate_x", cartesianCoordinate.getX());
 			rset.updateDouble("cartesian_coordinate_y", cartesianCoordinate.getY());
@@ -92,7 +94,7 @@ public class Location {
 		coordinate = newCoordinate;
 	}
 	
-	
+	// cw07
 	protected void assertIsNotNull(Object ob, String msg)
 	{
 		if (ob == null) {
@@ -100,6 +102,7 @@ public class Location {
 		}
 	}
 
+	// cw07
 	protected void assertClassInvariants()
 	{
 		if(coordinate == null)

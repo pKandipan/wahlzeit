@@ -22,6 +22,12 @@ public abstract class AbstractCoordinate implements Coordinate {
 		double dz = cartesianOther.getZ() - cartesianThis.getZ();
 
 		double dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+		
+		// cw07
+		if(Double.isNaN(dist))
+		{
+			throw new RuntimeException("argument of Math.sqrt was NaN or negative");
+		}
 
 		// postcondition
 		{
@@ -125,23 +131,29 @@ public abstract class AbstractCoordinate implements Coordinate {
 	
 	protected abstract void assertClassInvariants();
 	
+	// cw07
 	protected void assertIsNotNull(Object ob, String msg)
 	{
-		if (ob == null) {
+		if (ob == null) 
+		{
 			throw new NullPointerException(msg);
 		}
 	}
 	
+	// cw07
 	protected void assertValidDistance(double dist)
 	{
-		if (dist < 0) {
+		if (dist < 0)
+		{
 			throw new RuntimeException("distance must be >= 0");
 		}
 	}
 	
+	// cw07
 	protected void assertValidCentralAngle(double centralAngle)
 	{
-		if (centralAngle < 0. || centralAngle >= 2. * Math.PI) {
+		if (centralAngle < 0. || centralAngle >= 2. * Math.PI)
+		{
 			throw new RuntimeException("value range of central angle must be [0, 2*PI)");
 		}
 	}

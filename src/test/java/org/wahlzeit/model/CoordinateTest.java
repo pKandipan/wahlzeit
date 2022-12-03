@@ -42,6 +42,7 @@ public class CoordinateTest {
 		//assertThrows(NullPointerException.class, () -> coordinate.getDistance(null));
 	}
 
+	// cw07
 	@Test(expected = NullPointerException.class)
 	public void testGetDistanceNullPtrException() {
 		coordinate.getDistance(null);
@@ -93,6 +94,7 @@ public class CoordinateTest {
 		verify(newCoordinate, atLeast(6)).assertClassInvariants();
 	}
 	
+	// cw07
 	@Test(expected = NullPointerException.class)
 	public void testAssertIsNotNull() {
 		CartesianCoordinate newCoordinate = spy(new CartesianCoordinate(56., 42., 62.));
@@ -104,6 +106,7 @@ public class CoordinateTest {
 		verify(newCoordinate).assertIsNotNull(any(), any());
 	}
 	
+	// cw07
 	@Test(expected = RuntimeException.class)
 	public void testAssertValidDistance() {
 		CartesianCoordinate newCoordinate = spy(new CartesianCoordinate(56., 42., 62.));
@@ -113,6 +116,7 @@ public class CoordinateTest {
 		newCoordinate.assertValidDistance(-5.);
 	}
 	
+	// cw07
 	@Test(expected = RuntimeException.class)
 	public void testAssertValidCentralAngle() {
 		CartesianCoordinate newCoordinate = spy(new CartesianCoordinate(56., 42., 62.));

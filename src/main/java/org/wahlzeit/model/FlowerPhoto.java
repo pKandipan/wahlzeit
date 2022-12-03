@@ -59,6 +59,7 @@ public class FlowerPhoto extends Photo {
 		assertIsNotNull(photoRset, "Parameter 'photoRset' was null inside 'readFrom'.");
 		assertIsNotNull(flowerRset, "Parameter 'flowerRset' was null inside 'readFrom'.");
 	
+		// cw07
 		try {
 			readFrom(photoRset);
 		
@@ -76,6 +77,7 @@ public class FlowerPhoto extends Photo {
 	public void writeOn(ResultSet rset) throws SQLException {
 		assertIsNotNull(rset, "Parameter 'rset' was null inside 'writeOn'.");
 	
+		// cw07
 		try {
 			rset.updateInt("id", id.asInt());
 			rset.updateString("flower_name", flowerName);
@@ -120,6 +122,7 @@ public class FlowerPhoto extends Photo {
 		incWriteCount();
 	}
 	
+	// cw07
 	protected void assertIsNotNull(Object ob, String msg)
 	{
 		if (ob == null) {
