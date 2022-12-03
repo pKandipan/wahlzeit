@@ -49,6 +49,7 @@ public class SphericCoordinateTest {
 		assertTrue(Math.abs(dist - coordinate.getCartesianDistance(other)) < 0.00001);
 	}
 
+	// cw07
 	@Test(expected = IllegalArgumentException.class)
 	public void testArgsValueRange() {
 		SphericCoordinate other = new SphericCoordinate(4., 5., 6.);
@@ -106,6 +107,7 @@ public class SphericCoordinateTest {
 		verify(newCoordinate, atLeast(6)).assertInValueRange();
 	}
 	
+	// cw07
 	@Test(expected = IllegalArgumentException.class)
 	public void testAssertInValueRange() {
 		SphericCoordinate other = new SphericCoordinate(40., 50., 6.);
