@@ -27,7 +27,7 @@ public class PhotoTest {
 
 	@Test
 	public void testLocationMember() {
-		photo.setLocation(new Location(new CartesianCoordinate(4. ,5. ,6.)));
+		photo.setLocation(new Location(CartesianCoordinate.getInstance(4. ,5. ,6.)));
 		assertNotNull(photo.getLocation());
 		
 		CartesianCoordinate cartesianCoordinate = (CartesianCoordinate)photo.getLocation().getCoordinate();

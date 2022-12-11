@@ -18,7 +18,7 @@ public class LocationTest {
 
 	@Before
 	public void initLocation() {
-		location = new Location(new CartesianCoordinate(4., 5., 6.));
+		location = new Location(CartesianCoordinate.getInstance(4., 5., 6.));
 	}
 
 	@Test
@@ -29,13 +29,14 @@ public class LocationTest {
 		assertNotNull(location.getCoordinate());
 	}
 	
+	// cw08
 	@Test
 	public void testCoordinateInterchangability() {
-		location.setCoordinate(new SphericCoordinate(2., 1., 8.));
+		location.setCoordinate(SphericCoordinate.getInstance(2., 1., 8.));
 		assertNotNull(location.getCoordinate());
 		assertTrue(location.getCoordinate() instanceof SphericCoordinate);
 		
-		location.setCoordinate(new CartesianCoordinate(4., 9., 0.));
+		location.setCoordinate(CartesianCoordinate.getInstance(4., 9., 0.));
 		assertNotNull(location.getCoordinate());
 		assertTrue(location.getCoordinate() instanceof CartesianCoordinate);
 	}

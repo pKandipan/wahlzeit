@@ -15,19 +15,7 @@ public class Location {
 	{
 		assertIsNotNull(coordinate, "Parameter 'coordinate' was null inside method Location constructor.");
 	
-		// this.coordinate gets initialized with new Coordinate object to ensure multiplicity
-	
-		if(coordinate instanceof CartesianCoordinate)
-		{
-			CartesianCoordinate cartesianCoordinate = (CartesianCoordinate)coordinate;
-			this.coordinate = new CartesianCoordinate(cartesianCoordinate.getX(), cartesianCoordinate.getY(), cartesianCoordinate.getZ());
-		}
-		
-		else if(coordinate instanceof SphericCoordinate)
-		{
-			SphericCoordinate sphericCoordinate = coordinate.asSphericCoordinate();
-			this.coordinate = new SphericCoordinate(sphericCoordinate.getPhi(), sphericCoordinate.getTheta(), sphericCoordinate.getRadius());
-		}
+		this.coordinate = coordinate;
 	}
 	
 	// constructor that takes a ResultSet to read from
@@ -49,7 +37,7 @@ public class Location {
 			double x = rset.getDouble("cartesian_coordinate_x");
 			double y = rset.getDouble("cartesian_coordinate_y");
 			double z = rset.getDouble("cartesian_coordinate_z");
-			coordinate = new CartesianCoordinate(x, y, z);
+			coordinate = CartesianCoordinate.getInstance(x, y, z);
 		} catch(SQLException e) {
 			throw e;
 		}

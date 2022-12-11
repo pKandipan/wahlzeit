@@ -6,14 +6,20 @@ import java.lang.Math;
 
 public class CartesianCoordinate extends AbstractCoordinate {
 
+	// cw08
 	// cartesian coordinate components
 	private final double x;
 	private final double y;
 	private final double z;
 
 
+	public static CartesianCoordinate getInstance(double x, double y, double z)
+	{
+		return getInstance(new CartesianCoordinate(x, y, z)).asCartesianCoordinate();
+	}
+
 	// constructor that inits x, y, and z
-	public CartesianCoordinate(double x, double y, double z)
+	private CartesianCoordinate(double x, double y, double z)
 	{
 		this.x = x;
 		this.y = y;
@@ -112,7 +118,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 			this.assertClassInvariants();
 		}
 		
-		return new SphericCoordinate(phi, theta, radius);
+		return SphericCoordinate.getInstance(phi, theta, radius);
 	}
 	
 	// cw07

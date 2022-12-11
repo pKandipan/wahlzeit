@@ -2,8 +2,40 @@
 package org.wahlzeit.model;
 
 import java.lang.Math;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 public abstract class AbstractCoordinate implements Coordinate {
+	
+	// key: hashCode of CartesianCoordinate
+	// value: list of Coordinate interpretations
+	protected static HashMap<Integer, LinkedList<Coordinate>> coordinateValueObjects = new HashMap<>();
+	
+	protected static Coordinate getInstance(Coordinate coordinate)
+	{
+		int hc = coordinate.hashCode(); // is always hashCode the cartesian representation
+		LinkedList<Coordinate> coordinateTypes = coordinateValueObjects.get(hc);
+		if(coordinateTypes == null)
+		{
+			coordinateTypes = new LinkedList<Coordinate>();
+			coordinateTypes.add(coordinate);
+			
+			coordinateValueObjects.put(hc, coordinateTypes);
+		}
+		else
+		{
+			for(Coordinate type : coordinateTypes)
+			{
+				if(type.getClass() == coordinate.getClass())
+				{
+					return type;
+				}
+			}
+			
+			coordinateTypes.add(coordinate);
+		}
+		return coordinate;
+	}
 	
 	public double getCartesianDistance(Coordinate other)
 	{
@@ -81,6 +113,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 		return centralAngle;
 	}
 	
+	// cw08
 	public boolean isEqual(Coordinate other)
 	{
 		if(other == null) return false;
@@ -108,6 +141,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 		return equal;
 	}
 	
+	// cw08
 	@Override
 	public int hashCode() {
 		CartesianCoordinate cartesianThis = this.asCartesianCoordinate();
@@ -117,6 +151,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 		return d.hashCode();
 	}
 	
+	// cw08
 	// forward 'equals' to 'isEqual'
 	@Override
 	public boolean equals(Object obj) {

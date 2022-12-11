@@ -6,6 +6,7 @@ import java.lang.Math;
 
 public class SphericCoordinate extends AbstractCoordinate {
 
+	// cw08
 	// spheric coordinate components
 	// (whether phi is the azimuth or inclination depends on who you ask)
 	private final double phi; // azimuth
@@ -13,8 +14,13 @@ public class SphericCoordinate extends AbstractCoordinate {
 	private final double radius;
 
 
+	public static SphericCoordinate getInstance(double phi, double theta, double radius)
+	{
+		return getInstance(new SphericCoordinate(phi, theta, radius)).asSphericCoordinate();
+	}
+
 	// constructor that inits phi, theta, and radius
-	public SphericCoordinate(double phi, double theta, double radius)
+	private SphericCoordinate(double phi, double theta, double radius)
 	{
 		assertInValueRange(phi, theta, radius);
 	
@@ -100,7 +106,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 			this.assertClassInvariants();
 		}
 		
-		return new CartesianCoordinate(x, y, z);
+		return CartesianCoordinate.getInstance(x, y, z);
 	}
 	
 	public SphericCoordinate asSphericCoordinate()

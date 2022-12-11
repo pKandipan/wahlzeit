@@ -16,7 +16,7 @@ public class SphericCoordinateTest {
 
 	@Before
 	public void initCoordinate() {
-		coordinate = new SphericCoordinate(1., 2., 6.);
+		coordinate = SphericCoordinate.getInstance(1., 2., 6.);
 	}
 
 	@Test
@@ -32,7 +32,7 @@ public class SphericCoordinateTest {
 	@Test
 	public void testGetCartesianDistance() {
 		
-		SphericCoordinate other = new SphericCoordinate(2.12, 3., 8.);
+		SphericCoordinate other = SphericCoordinate.getInstance(2.12, 3., 8.);
 		
 		double r1 = coordinate.getRadius();
 		double r2 = other.getRadius();
@@ -52,7 +52,7 @@ public class SphericCoordinateTest {
 	// cw07
 	@Test(expected = IllegalArgumentException.class)
 	public void testArgsValueRange() {
-		SphericCoordinate other = new SphericCoordinate(4., 5., 6.);
+		SphericCoordinate other = SphericCoordinate.getInstance(4., 5., 6.);
 	}
 
 	@Test
@@ -62,18 +62,18 @@ public class SphericCoordinateTest {
 		assertTrue(coordinate.equals(coordinate));
 		
 
-		SphericCoordinate other = new SphericCoordinate(1., 2., 6.);
+		SphericCoordinate other = SphericCoordinate.getInstance(1., 2., 6.);
 		assertTrue(coordinate.equals(other));
 
-		other = new SphericCoordinate(3., 2., 1.);
+		other = SphericCoordinate.getInstance(3., 2., 1.);
 		assertTrue(!coordinate.equals(other));
 
-		other = new SphericCoordinate(1.265972, 2.894674, 8.65667);
+		other = SphericCoordinate.getInstance(1.265972, 2.894674, 8.65667);
 		assertTrue(other.equals(other));
 		
-		SphericCoordinate sc = new SphericCoordinate(Math.PI/3., Math.PI/6., 8.);
+		SphericCoordinate sc = SphericCoordinate.getInstance(Math.PI/3., Math.PI/6., 8.);
 		CartesianCoordinate scAscc = sc.asCartesianCoordinate();
-		CartesianCoordinate cc = new CartesianCoordinate(2., 2.*Math.sqrt(3.), 4.*Math.sqrt(3.));
+		CartesianCoordinate cc = CartesianCoordinate.getInstance(2., 2.*Math.sqrt(3.), 4.*Math.sqrt(3.));
 		assertTrue(scAscc.equals(cc));
 		
 		assertTrue(coordinate.equals(coordinate.asSphericCoordinate()));
@@ -82,7 +82,7 @@ public class SphericCoordinateTest {
 	
 	@Test
 	public void testInterpretation() {
-		SphericCoordinate other = new SphericCoordinate(1., 2., 6.);
+		SphericCoordinate other = SphericCoordinate.getInstance(1., 2., 6.);
 		
 		assertTrue(coordinate.asSphericCoordinate() instanceof SphericCoordinate);
 		assertTrue(coordinate.asCartesianCoordinate() instanceof CartesianCoordinate);
@@ -95,7 +95,7 @@ public class SphericCoordinateTest {
 	
 	@Test
 	public void testAssertClassInvariants() {
-		SphericCoordinate newCoordinate = spy(new SphericCoordinate(1., 2., 2.5));
+		SphericCoordinate newCoordinate = spy(SphericCoordinate.getInstance(1., 2., 2.5));
 		
 		newCoordinate.getPhi();
 		newCoordinate.getTheta();
@@ -110,6 +110,6 @@ public class SphericCoordinateTest {
 	// cw07
 	@Test(expected = IllegalArgumentException.class)
 	public void testAssertInValueRange() {
-		SphericCoordinate other = new SphericCoordinate(40., 50., 6.);
+		SphericCoordinate other = SphericCoordinate.getInstance(40., 50., 6.);
 	}
 }

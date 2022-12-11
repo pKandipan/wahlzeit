@@ -16,7 +16,7 @@ public class CoordinateTest {
 
 	@Before
 	public void initCoordinate() {
-		coordinate = new CartesianCoordinate(4., 5., 6.);
+		coordinate = CartesianCoordinate.getInstance(4., 5., 6.);
 	}
 
 	@Test
@@ -32,10 +32,10 @@ public class CoordinateTest {
 	@Test
 	public void testGetDistance() {
 		
-		CartesianCoordinate other = new CartesianCoordinate(4., 5., 6.);
+		CartesianCoordinate other = CartesianCoordinate.getInstance(4., 5., 6.);
 		assertTrue(0. == coordinate.getDistance(other));
 
-		other = new CartesianCoordinate(-6., 2., -1.);
+		other = CartesianCoordinate.getInstance(-6., 2., -1.);
 		double dist = Math.sqrt(158.);
 		assertTrue(dist == coordinate.getDistance(other));
 
@@ -55,18 +55,18 @@ public class CoordinateTest {
 		assertTrue(coordinate.equals(coordinate));
 		
 
-		CartesianCoordinate other = new CartesianCoordinate(4., 5., 6.);
+		CartesianCoordinate other = CartesianCoordinate.getInstance(4., 5., 6.);
 		assertTrue(coordinate.equals(other));
 
-		other = new CartesianCoordinate(-6., 2., -1.);
+		other = CartesianCoordinate.getInstance(-6., 2., -1.);
 		assertTrue(!coordinate.equals(other));
 
-		other = new CartesianCoordinate(-6.265972, 2.894674, -1.65667);
+		other = CartesianCoordinate.getInstance(-6.265972, 2.894674, -1.65667);
 		assertTrue(other.equals(other));
 		
-		CartesianCoordinate cc = new CartesianCoordinate(-1., 1., Math.sqrt(6.));
+		CartesianCoordinate cc = CartesianCoordinate.getInstance(-1., 1., Math.sqrt(6.));
 		SphericCoordinate ccAssc = cc.asSphericCoordinate();
-		SphericCoordinate sc = new SphericCoordinate(3. * Math.PI / 4., Math.PI / 6., 2. * Math.sqrt(2.));
+		SphericCoordinate sc = SphericCoordinate.getInstance(3. * Math.PI / 4., Math.PI / 6., 2. * Math.sqrt(2.));
 		assertTrue(ccAssc.equals(sc));
 		
 		assertTrue(coordinate.equals(coordinate.asCartesianCoordinate()));
@@ -75,7 +75,7 @@ public class CoordinateTest {
 	
 	@Test
 	public void testInterpretation() {
-		CartesianCoordinate other = new CartesianCoordinate(1., 2., 6.);
+		CartesianCoordinate other = CartesianCoordinate.getInstance(1., 2., 6.);
 		
 		assertTrue(coordinate.asCartesianCoordinate() instanceof CartesianCoordinate);
 		assertTrue(coordinate.asSphericCoordinate() instanceof SphericCoordinate);
@@ -83,7 +83,7 @@ public class CoordinateTest {
 	
 	@Test
 	public void testAssertClassInvariants() {
-		CartesianCoordinate newCoordinate = spy(new CartesianCoordinate(56., 42., 62.));
+		CartesianCoordinate newCoordinate = spy(CartesianCoordinate.getInstance(56., 42., 62.));
 		
 		newCoordinate.getX();
 		newCoordinate.getY();
@@ -97,7 +97,7 @@ public class CoordinateTest {
 	// cw07
 	@Test(expected = NullPointerException.class)
 	public void testAssertIsNotNull() {
-		CartesianCoordinate newCoordinate = spy(new CartesianCoordinate(56., 42., 62.));
+		CartesianCoordinate newCoordinate = spy(CartesianCoordinate.getInstance(56., 42., 62.));
 		
 		newCoordinate.getCartesianDistance(null);
 		verify(newCoordinate).assertIsNotNull(any(), any());
@@ -109,7 +109,7 @@ public class CoordinateTest {
 	// cw07
 	@Test(expected = RuntimeException.class)
 	public void testAssertValidDistance() {
-		CartesianCoordinate newCoordinate = spy(new CartesianCoordinate(56., 42., 62.));
+		CartesianCoordinate newCoordinate = spy(CartesianCoordinate.getInstance(56., 42., 62.));
 		newCoordinate.getCartesianDistance(any());
 
 		verify(newCoordinate).assertValidDistance(any());
@@ -119,10 +119,28 @@ public class CoordinateTest {
 	// cw07
 	@Test(expected = RuntimeException.class)
 	public void testAssertValidCentralAngle() {
-		CartesianCoordinate newCoordinate = spy(new CartesianCoordinate(56., 42., 62.));
+		CartesianCoordinate newCoordinate = spy(CartesianCoordinate.getInstance(56., 42., 62.));
 		newCoordinate.getCentralAngle(any());
 
 		verify(newCoordinate).assertValidCentralAngle(any());
 		newCoordinate.assertValidCentralAngle(2. * Math.PI);
+	}
+	
+	@Test
+	public void testSharedValues() {
+		int mapSize = AbstractCoordinate.coordinateValueObjects.size();
+		CartesianCoordinate cCoord = spy(CartesianCoordinate.getInstance(1.2, 2.4, 6.5));
+		assertTrue(AbstractCoordinate.coordinateValueObjects.size() == mapSize + 1);
+		
+		cCoord = spy(CartesianCoordinate.getInstance(1.2, 2.4, 6.5));
+		assertTrue(AbstractCoordinate.coordinateValueObjects.size() == mapSize + 1);
+		
+		
+		mapSize = AbstractCoordinate.coordinateValueObjects.size();
+		SphericCoordinate sCoord = spy(SphericCoordinate.getInstance(0.2, 2.4, 2.5));
+		assertTrue(AbstractCoordinate.coordinateValueObjects.size() == mapSize + 1);
+		
+		sCoord = spy(SphericCoordinate.getInstance(0.2, 2.4, 2.5));
+		assertTrue(AbstractCoordinate.coordinateValueObjects.size() == mapSize + 1);
 	}
 }
