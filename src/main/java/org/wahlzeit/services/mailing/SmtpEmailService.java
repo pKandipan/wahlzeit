@@ -11,9 +11,16 @@ import javax.mail.internet.*;
 
 import org.wahlzeit.services.EmailAddress;
 
+import org.wahlzeit.utils.PatternInstance;
+
 /**
  * 
  */
+@PatternInstance(
+	type = "Behavioral",
+	patternName = "Command",
+	participants = {"Concrete Command Class"}
+)
 public class SmtpEmailService extends AbstractEmailService {
 	
 	/**
@@ -65,6 +72,11 @@ public class SmtpEmailService extends AbstractEmailService {
 	/**
 	 * 
 	 */
+	@PatternInstance(
+		type = "Behavioral",
+		patternName = "Template Method",
+		participants = {"Concrete Step"}
+	)
 	@Override
 	protected Message doCreateEmail(EmailAddress from, EmailAddress to, EmailAddress bcc, String subject, String body) throws MailingException {
 		Message msg = new MimeMessage(session);
@@ -104,6 +116,11 @@ public class SmtpEmailService extends AbstractEmailService {
 	/**
 	 * 
 	 */
+	@PatternInstance(
+		type = "Behavioral",
+		patternName = "Template Method",
+		participants = {"Concrete Step"}
+	)
 	@Override
 	protected void doSendEmail(Message msg) throws MailingException {
 		try {

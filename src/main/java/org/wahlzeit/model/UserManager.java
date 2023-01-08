@@ -11,9 +11,16 @@ import java.sql.*;
 import org.wahlzeit.services.*;
 import org.wahlzeit.services.mailing.*;
 
+import org.wahlzeit.utils.PatternInstance;
+
 /**
  * The UserManager provides access to and manages Users (including Moderators and Administrators).
  */
+@PatternInstance(
+	type = "Behavioral",
+	patternName = "Command",
+	participants = {"Invoker"}
+)
 public class UserManager extends ObjectManager {
 
 	/**

@@ -10,6 +10,11 @@ import org.wahlzeit.utils.*;
 /**
  * A flower photo represents a user-provided (uploaded) photo.
  */
+@PatternInstance(
+	type = "Creational",
+	patternName = "Abstract Factory",
+	participants = {"Concrete Product"}
+)
 public class FlowerPhoto extends Photo {
 
 	protected String flowerName;

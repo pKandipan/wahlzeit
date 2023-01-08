@@ -8,6 +8,8 @@ import java.util.*;
 import org.wahlzeit.main.*;
 import org.wahlzeit.services.*;
 
+import org.wahlzeit.utils.PatternInstance;
+
 /**
  * A flower photo manager provides access to and manages photos.
  */

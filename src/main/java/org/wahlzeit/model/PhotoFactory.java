@@ -9,14 +9,26 @@ import java.sql.*;
 
 import org.wahlzeit.services.*;
 
+import org.wahlzeit.utils.PatternInstance;
+
 /**
  * An Abstract Factory for creating photos and related objects.
  */
+@PatternInstance(
+	type = "Creational",
+	patternName = "Abstract Factory",
+	participants = {"Abstract Factory", "Concrete Factory"}
+)
 public class PhotoFactory {
 	
 	/**
 	 * Hidden singleton instance; needs to be initialized from the outside.
 	 */
+	@PatternInstance(
+		type = "Creational",
+		patternName = "Singleton",
+		participants = {"Abstract Singleton", "Concrete Singleton"}
+	)
 	private static PhotoFactory instance = null;
 	
 	/**

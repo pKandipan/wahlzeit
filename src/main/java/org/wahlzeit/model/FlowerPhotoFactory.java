@@ -5,9 +5,16 @@ import java.sql.*;
 
 import org.wahlzeit.services.*;
 
+import org.wahlzeit.utils.PatternInstance;
+
 /**
  * An Abstract Factory for creating flower photos and related objects.
  */
+@PatternInstance(
+	type = "Creational",
+	patternName = "Abstract Factory",
+	participants = {"Concrete Factory"}
+)
 public class FlowerPhotoFactory extends PhotoFactory{
 
 	/**

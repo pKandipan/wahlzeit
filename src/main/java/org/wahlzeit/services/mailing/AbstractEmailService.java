@@ -11,6 +11,8 @@ import org.wahlzeit.services.EmailAddress;
 import org.wahlzeit.services.SysLog;
 import org.wahlzeit.utils.StringUtil;
 
+import org.wahlzeit.utils.PatternInstance;
+
 /**
  * Abstract superclass for non-trivial EmailServer implementations.
  * 
@@ -20,6 +22,11 @@ public abstract class AbstractEmailService implements EmailService {
 	/**
 	 * 
 	 */
+	@PatternInstance(
+		type = "Behavioral",
+		patternName = "Template Method",
+		participants = {"Abstract Template Method"}
+	)
 	@Override
 	public void sendEmail(EmailAddress from, EmailAddress to, String subject, String body) throws MailingException {
 		sendEmail(from, to, EmailAddress.EMPTY, subject, body);
