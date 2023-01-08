@@ -1,6 +1,6 @@
 package org.wahlzeit.utils;
 
-@interface PatternInstance
+public @interface PatternInstance
 {
 	String type();
 	String patternName();
