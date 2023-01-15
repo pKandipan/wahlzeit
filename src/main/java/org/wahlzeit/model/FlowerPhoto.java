@@ -17,14 +17,22 @@ import org.wahlzeit.utils.*;
 )
 public class FlowerPhoto extends Photo {
 
-	protected String flowerName;
-	protected String flowerColor;
+	protected Flower flower;
 
 	/**
 	 * 
 	 */
 	public FlowerPhoto() {
 		id = PhotoId.getNextId();
+		incWriteCount();
+	}
+	
+	/**
+	 * 
+	 */
+	public FlowerPhoto(Flower flower) {
+		id = PhotoId.getNextId();
+		setFlower(flower);
 		incWriteCount();
 	}
 	
@@ -64,12 +72,10 @@ public class FlowerPhoto extends Photo {
 		assertIsNotNull(photoRset, "Parameter 'photoRset' was null inside 'readFrom'.");
 		assertIsNotNull(flowerRset, "Parameter 'flowerRset' was null inside 'readFrom'.");
 	
+		flower = FlowerManager.getInstance().createFlower(flowerRset);
 		// cw07
 		try {
 			readFrom(photoRset);
-		
-			flowerName = flowerRset.getString("flower_name");
-			flowerColor = flowerRset.getString("flower_color");
 		} catch(SQLException e) {
 			throw e;
 		}
@@ -85,45 +91,43 @@ public class FlowerPhoto extends Photo {
 		// cw07
 		try {
 			rset.updateInt("id", id.asInt());
-			rset.updateString("flower_name", flowerName);
-			rset.updateString("flower_color", flowerColor);
+			if(flower != null)
+				flower.writeOn(rset);
 		} catch(SQLException e) {
 			throw e;
 		}
 	}
 
-
+	
 	/**
 	 * 
 	 * @methodtype get
 	 */
-	public String getFlowerName() {
-		return flowerName;
+	public Flower getFlower() {
+		return flower;
 	}
 
 	/**
 	 * 
 	 * @methodtype set
+	 * ensures that the newly set Flower is managed by the FlowerManager
+	 * ensures that the newly set Flower only belogns to one photo
+	 * otherwise a copy is set
 	 */
-	public void setFlowerName(String newFlowerName) {
-		flowerName = newFlowerName;
-		incWriteCount();
-	}
-
-	/**
-	 * 
-	 * @methodtype get
-	 */
-	public String getFlowerColor() {
-		return flowerColor;
-	}
-
-	/**
-	 * 
-	 * @methodtype set
-	 */
-	public void setFlowerColor(String newFlowerColor) {
-		flowerColor = newFlowerColor;
+	public void setFlower(Flower newFlower) {
+		assertIsNotNull(newFlower, "cannot assign a null-Flower to a FlowerPhoto");
+		
+		if(newFlower.getId() == null)
+		{
+			flower = newFlower;
+		}
+		else
+		{
+			FlowerType ft = newFlower.getFlowerType();
+			String fName = newFlower.getFlowerName();
+			String fColor = newFlower.getFlowerColor();
+			flower = FlowerManager.getInstance().createFlower(this, ft.getTypeName(), fName, fColor);
+		}	
 		incWriteCount();
 	}
 	

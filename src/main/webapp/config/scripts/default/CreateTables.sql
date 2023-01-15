@@ -17,6 +17,7 @@ CREATE TABLE users (
 
 CREATE TABLE flowers (
 	id integer PRIMARY KEY,
+	flower_type text,
 	flower_name text,
 	flower_color text
 );
