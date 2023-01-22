@@ -27,6 +27,7 @@ public class FlowerType extends DataObject
         this.superType = superType;
     }
     
+    // [step 12]
     public static FlowerType getFlowerTypeInstance(String name)
     {
         String[] splits = name.split("/");

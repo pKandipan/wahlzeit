@@ -19,18 +19,18 @@ public class Location {
 	}
 	
 	// constructor that takes a ResultSet to read from
-	// [step 13]
+	// [step 14]
 	public Location(ResultSet rset) throws SQLException
 	{
 		assertIsNotNull(rset, "Parameter 'rset' was null inside Location constructor.");
 		
-		// [step 14 - 18]
+		// [step 15 - 19]
 		readFrom(rset);
 		assertClassInvariants();
 	}
 	
 	/**
-	 * [step 14]
+	 * [step 15]
 	 */
 	public void readFrom(ResultSet rset) throws SQLException {
 		assertIsNotNull(rset, "Parameter 'rset' was null inside 'readFrom'.");
@@ -41,7 +41,7 @@ public class Location {
 			double y = rset.getDouble("cartesian_coordinate_y");
 			double z = rset.getDouble("cartesian_coordinate_z");
 			
-			// [step 15 - 18]
+			// [step 16 - 19]
 			coordinate = CartesianCoordinate.getInstance(x, y, z);
 		} catch(SQLException e) {
 			throw e;

@@ -44,7 +44,7 @@ public class FlowerManager
 	// [step 9]
 	public Flower createFlower(ResultSet rset) throws SQLException {
 	
-		// [step 10 - 11]
+		// [step 10 - 12]
 		Flower result = new Flower(rset);
 		flowers.put(result.getId(), result);
 		return result;

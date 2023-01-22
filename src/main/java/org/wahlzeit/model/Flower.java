@@ -43,6 +43,8 @@ public class Flower extends DataObject
 		try {
 			// delegate to type class
 			String typeName = flowerRset.getString("flower_type");
+			
+			// [step 12]
 			flowerType = FlowerType.getFlowerTypeInstance(typeName);
 			
 			id = PhotoId.getIdFromInt(flowerRset.getInt("id"));
