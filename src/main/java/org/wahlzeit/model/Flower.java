@@ -27,13 +27,15 @@ public class Flower extends DataObject
 		incWriteCount();
 	}
 
+	// [step 10]
 	public Flower(ResultSet rset) throws SQLException
 	{
+		// [step 11]
 		readFrom(rset);
 	}
 
 	/**
-	 * 
+	 * [step 11]
 	 */
 	public void readFrom(ResultSet flowerRset) throws SQLException {
 		assertIsNotNull(flowerRset, "Parameter 'flowerRset' was null inside 'readFrom'.");

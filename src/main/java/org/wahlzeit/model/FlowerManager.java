@@ -23,7 +23,7 @@ public class FlowerManager
 	protected HashMap<PhotoId, Flower> flowers = new HashMap<PhotoId, Flower>();
 	
 	/**
-	 * 
+	 * [step 8]
 	 */
 	public static final FlowerManager getInstance() {
 		return instance;
@@ -41,8 +41,10 @@ public class FlowerManager
 		return result;
 	}
 	
+	// [step 9]
 	public Flower createFlower(ResultSet rset) throws SQLException {
 	
+		// [step 10 - 11]
 		Flower result = new Flower(rset);
 		flowers.put(result.getId(), result);
 		return result;

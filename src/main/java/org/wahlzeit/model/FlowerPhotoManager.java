@@ -33,7 +33,7 @@ public class FlowerPhotoManager extends PhotoManager {
 	}
 	
 	/**
-	 * 
+	 * [step 1]
 	 */
 	@Override
 	protected Photo createObject(ResultSet photoRset) throws SQLException{
@@ -51,8 +51,10 @@ public class FlowerPhotoManager extends PhotoManager {
 			throw new IllegalStateException("there is no entry in flowers table with id: " + String.valueOf(id));
 		}
 		
-	
+		// [step 2 - 4]
 		FlowerPhotoFactory factory = (FlowerPhotoFactory)FlowerPhotoFactory.getInstance();
+		
+		// [step 5 - 18]
 		return factory.createPhoto(photoRset, flowerRset);
 	}
 

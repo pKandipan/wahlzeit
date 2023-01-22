@@ -12,13 +12,15 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	private final double y;
 	private final double z;
 
-
+	// [step 15]
 	public static CartesianCoordinate getInstance(double x, double y, double z)
 	{
+		// [step 16 - 18]
 		return getInstance(new CartesianCoordinate(x, y, z)).asCartesianCoordinate();
 	}
 
 	// constructor that inits x, y, and z
+	// [step 16]
 	private CartesianCoordinate(double x, double y, double z)
 	{
 		this.x = x;
@@ -71,6 +73,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		return this.getCartesianDistance(other);
 	}
 	
+	// [step 18]
 	public CartesianCoordinate asCartesianCoordinate()
 	{
 		// class invariant

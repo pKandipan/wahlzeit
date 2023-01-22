@@ -134,7 +134,7 @@ public class Photo extends DataObject {
 	}
 	
 	/**
-	 * 
+	 * [step 12]
 	 */
 	public void readFrom(ResultSet rset) throws SQLException {
 		id = PhotoId.getIdFromInt(rset.getInt("id"));
@@ -160,6 +160,7 @@ public class Photo extends DataObject {
 
 		maxPhotoSize = PhotoSize.getFromWidthHeight(width, height);
 
+		// [step 13 - 18]
 		location = new Location(rset);
 	}
 	

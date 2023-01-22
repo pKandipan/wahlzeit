@@ -11,6 +11,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 	// value: list of Coordinate interpretations
 	protected static HashMap<Integer, LinkedList<Coordinate>> coordinateValueObjects = new HashMap<>();
 	
+	// [step 17]
 	protected static Coordinate getInstance(Coordinate coordinate)
 	{
 		int hc = coordinate.hashCode(); // is always hashCode the cartesian representation

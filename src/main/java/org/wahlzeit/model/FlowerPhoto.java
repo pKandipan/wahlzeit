@@ -60,21 +60,25 @@ public class FlowerPhoto extends Photo {
 	/**
 	 * 
 	 * @methodtype constructor
+	 * [step 6]
 	 */
 	public FlowerPhoto(ResultSet photoRset, ResultSet flowerRset) throws SQLException {
+		// [step 7 - 18]
 		readFrom(photoRset, flowerRset);
 	}
 
 	/**
-	 * 
+	 * // [step 7]
 	 */
 	public void readFrom(ResultSet photoRset, ResultSet flowerRset) throws SQLException {
 		assertIsNotNull(photoRset, "Parameter 'photoRset' was null inside 'readFrom'.");
 		assertIsNotNull(flowerRset, "Parameter 'flowerRset' was null inside 'readFrom'.");
 	
+		// [step 8 - 11]
 		flower = FlowerManager.getInstance().createFlower(flowerRset);
 		// cw07
 		try {
+			// [step 12 - 18]
 			readFrom(photoRset);
 		} catch(SQLException e) {
 			throw e;

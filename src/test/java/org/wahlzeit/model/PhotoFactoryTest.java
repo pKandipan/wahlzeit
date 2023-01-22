@@ -10,7 +10,7 @@ public class PhotoFactoryTest {
 
 	@Test
 	public void testGetInstance() {
-		PhotoFactory factory = PhotoFactory.getInstance();
+		PhotoFactory factory = FlowerPhotoFactory.getInstance();
 		assertNotNull(factory);
 
 		assertTrue(factory instanceof FlowerPhotoFactory);
@@ -18,7 +18,7 @@ public class PhotoFactoryTest {
 	
 	@Test
 	public void testCreatePhoto() {
-		PhotoFactory factory = PhotoFactory.getInstance();
+		PhotoFactory factory = FlowerPhotoFactory.getInstance();
 
 		assertTrue(factory.createPhoto() instanceof FlowerPhoto);
 	}
